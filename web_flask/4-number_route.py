@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 This script defines a Flask web application that responds to several routes:
     - /: returns a string "Hello HBNB!"
