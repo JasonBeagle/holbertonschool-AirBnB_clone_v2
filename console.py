@@ -73,11 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-<<<<<<< HEAD
-                    if pline[0] is '{' and pline[-1] is ' } '\
-=======
-                    if pline[0] == '{' and pline[-1] =='}'\
->>>>>>> d516bb6042f1e4a01efc9a7747aef8c7c900617f
+                    if pline[0] == '{' and pline[-1] == ' } '\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -366,9 +362,5 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     HBNBCommand().cmdloop()
 
-=======
-    HBNBCommand().cmdloop()
->>>>>>> d516bb6042f1e4a01efc9a7747aef8c7c900617f
