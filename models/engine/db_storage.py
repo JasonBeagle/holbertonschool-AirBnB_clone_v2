@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+"""
+This module defines a class called DBStorage, which is responsible for
+storing and retrieving data using an SQL database.
+"""
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -8,12 +11,23 @@ from sqlalchemy.orm import scoped_session
 
 
 class DBStorage():
-    """ SQL storage class """
+    """
+    This class is responsible for storing and retrieving data using
+    an SQL database. It includes methods for creating a new object,
+    saving objects to the database, deleting objects from the database,
+    and loading all tables in the database. The all() method returns a
+    dictionary of all objects in the database, or a dictionary of
+    objects of a specified class. The class takes its database
+    connection parameters from environment variables set in the
+    operating system."""
     __engine = None
     __session = None
 
     def __init__(self):
-        """ inits the sql db storage"""
+        """
+        Initializes the SQL database storage by creating an engine object
+        with the given parameters and starting a session with the database.
+        """
         from models.base_model import Base
 
         db_user = os.environ.get('HBNB_MYSQL_USER')
@@ -29,8 +43,10 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """ This must return a dictionary: with all the methods """
-
+        """
+        Returns a dictionary of all objects in the database,
+        or a dictionary of objects of a specified class.
+        """
         from models.base_model import BaseModel
         from models.user import User
         from models.state import State
@@ -55,15 +71,21 @@ class DBStorage():
             return object_dict
 
     def new(self, obj):
-        """ create a new object """
+        """
+        Adds a new object to the current database session.
+        """
         self.__session.add(obj)
 
     def save(self):
-        """ saves session in database """
+        """
+        Commits all changes to the current database session.
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """ deletes an obj from db """
+        """
+        Deletes an object from the current database session.
+        """
         if not obj:
             return
         # key = str(obj.__class__.__name__)
@@ -74,7 +96,10 @@ class DBStorage():
         #        self.__session.delete(data)
 
     def reload(self):
-        """ loads all tables in the database """
+        """
+        Creates all tables in the database and starts a new
+        session with the database.
+        """
         from models.base_model import BaseModel, Base
         from models.user import User
         from models.state import State
@@ -90,6 +115,9 @@ class DBStorage():
         self.__session = Session()
 
     def close(self):
-        """ closes the session and the engine """
+        """
+        Closes the current database session and disposes of the
+        database engine.
+        """
         self.__session.close()
         self.__engine.dispose()

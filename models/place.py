@@ -42,8 +42,28 @@ class Place(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """initializes Place"""
         super().__init__(*args, **kwargs)
+        if getenv('HBNB_TYPE_STORAGE') != "db":
+            self.reviews = relationship("Review", backref="place",
+                                        cascade="all, delete")
 
-    if models.storage_type != "db":
+            @property
+            def amenities(self):
+                """ Get Linked Amenities """
+                amenitylist = []
+                for amenity in list(models.storage.all(Amenity).values()):
+                    if amenity.id in self.amenity_ids:
+                        amenitylist.append(amenity)
+                return amenitylist
+
+            @amenities.setter
+            def amenities(self, value):
+                if type(value) == Amenity:
+                    self.amenity_ids.append(value.id)
+        else:
+            self.amenities = relationship("Amenity", secondary="place_amenity",
+                                          viewonly=False)
+
+    if getenv('HBNB_TYPE_STORAGE') != "db":
         @property
         def reviews(self):
             """Get a list of all Reviews"""
@@ -65,4 +85,4 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, value):
             if type(value) == Amenity:
-                self.amenity_ids.append(value.id)
+                self.amenity_ids.append(value)

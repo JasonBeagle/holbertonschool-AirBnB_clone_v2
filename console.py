@@ -139,24 +139,24 @@ class HBNBCommand(cmd.Cmd):
             else:
                 try:
                     value = float(value)
-                except:
+                except ValueError:
                     if value[0] == '\"' and value[-1] == '\"':
                         valid = 1
-                        value = value[1:-1]
-                        value = value.replace('_', ' ')
-                        index = value.find('\"', 1)
-                        for i in range(len(value)):
-                            if (i == 0 and value[i] == '"'):
-                                valid = 0
-                            if (value[i] == '"'):
-                                if (value[i - 1] != '\\'):
-                                    valid = 0
-                        if (valid == 0):
-                            commands = commands[2]
-                            continue
-                    else:
-                        commands = commands[2]
-                        continue
+                    value = value[1:-1]
+                    value = value.replace('_', ' ')
+                    index = value.find('\"', 1)
+                    for i in range(len(value)):
+                        if (i == 0 and value[i] == '"'):
+                            valid = 0
+                    if (value[i] == '"'):
+                        if (value[i - 1] != '\\'):
+                            valid = 0
+                if (valid == 0):
+                    commands = commands[2]
+                    continue
+                else:
+                    commands = commands[2]
+                continue
             new_dict[key] = value
             commands = commands[2]
         new_instance.__dict__.update(new_dict)
@@ -361,6 +361,6 @@ class HBNBCommand(cmd.Cmd):
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
