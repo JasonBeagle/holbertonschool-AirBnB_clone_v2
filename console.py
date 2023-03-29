@@ -113,55 +113,29 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
-        """ Create an object of any class"""
-        if not args:
+    def do_create(self, line):
+        """Usage: create <Class name> <param 1> <param 2> <param 3>..."""
+        if not line:
             print("** class name missing **")
             return
-
-        commands = args[:]
-        commands = commands.partition(' ')
-        classes = commands[0]
-        if classes not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-
-        new_instance = HBNBCommand.classes[classes]()
-        commands = commands[2]
-        new_dict = {}
-        while len(commands) != 0:
-            commands = commands.partition(" ")
-            parameter = commands[0].partition("=")
-            key = parameter[0]
-            value = parameter[2]
-            if value.isdecimal():
-                value = int(value)
+        args = line.split()
+        kwargs = {}
+        for param in range(1, len(args)):
+            ky, vl = args[param].split("=")
+            if vl[0] == '"':
+                vl = vl.replace('_', ' ').strip('"')
             else:
                 try:
-                    value = float(value)
-                except ValueError:
-                    if value[0] == '\"' and value[-1] == '\"':
-                        valid = 1
-                    value = value[1:-1]
-                    value = value.replace('_', ' ')
-                    index = value.find('\"', 1)
-                    for i in range(len(value)):
-                        if (i == 0 and value[i] == '"'):
-                            valid = 0
-                    if (value[i] == '"'):
-                        if (value[i - 1] != '\\'):
-                            valid = 0
-                if (valid == 0):
-                    commands = commands[2]
+                    vl = eval(vl)
+                except (SyntaxError, NameError):
                     continue
-                else:
-                    commands = commands[2]
-                continue
-            new_dict[key] = value
-            commands = commands[2]
-        new_instance.__dict__.update(new_dict)
-        new_instance.save()
-        print(new_instance.id)
+            kwargs[ky] = vl
+        if len(kwargs) == 0:
+            obj = eval(args[0])()
+        else:
+            obj = eval(args[0])(**kwargs)
+        print(obj.id)
+        obj.save()
 
     def help_create(self):
         """ Help information for the create method """
