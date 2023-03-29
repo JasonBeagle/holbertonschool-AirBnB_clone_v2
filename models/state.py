@@ -19,8 +19,8 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """ getter method for cities"""
-            cities_dict = {}
+            cities_list = []
             for city in storage.all(City).values():
                 if city.state_id == self.id:
-                    cities_dict[city.id] = city
-            return cities_dict
+                    cities_list.append(city)
+            return cities_list
