@@ -68,7 +68,12 @@ def number_template(n):
 # Set the route for /number_odd_or_even/<n>
 @app.route('/number_odd_or_even/<int:n>')
 def number_odd_or_even(n):
-    return render_template('6-number_odd_or_even.html', n=n)
+    if n % 2 == 0:
+        odd_or_even = 'even'
+    else:
+        odd_or_even = 'odd'
+    return render_template('6-number_odd_or_even.html', n=n,
+                           odd_or_even=odd_or_even)
 
 
 # Start the Flask application server
