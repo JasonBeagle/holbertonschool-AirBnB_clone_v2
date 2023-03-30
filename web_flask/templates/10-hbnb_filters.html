@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<HTML lang="en">
+<HEAD>
+    <META charset="UTF-8">
+    <TITLE>HBNB Filters</TITLE>
+    <LINK rel="shortcut icon" href="{{ url_for('static', filename='images/icon.png') }}">
+    <LINK rel="stylesheet" href="{{ url_for('static', filename='styles/4-common.css') }}">
+    <LINK rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}">
+    <LINK rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}">
+    <LINK rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}">
+</HEAD>
+<BODY>
+    <HEADER>
+        <DIV id="header_logo"></DIV>
+    </HEADER>
+    <DIV class="container">
+        <SECTION class="filters">
+            <DIV class="locations">
+                <H3>States</H3>
+                <UL class="popover">
+                    <LI><H2>Arizona</H2>
+                        <UL>
+                            <LI><LABEL for="city-1"><INPUT type="checkbox" name="state" id="city-1" value="city-1">Page</LABEL></LI>
+                            <LI><LABEL for="city-2"><INPUT type="checkbox" name="state" id="city-2" value="city-2">Page2</LABEL></LI>
+                        </UL>
+                    </LI>
+                    <LI><H2>California</H2>
+                        <UL>
+                            <LI><LABEL for="city-3"><INPUT type="checkbox" name="state" id="city-3" value="city-3">San Francisco</LABEL></LI>
+                            <LI><LABEL for="city-4"><INPUT type="checkbox" name="state" id="city-4" value="city-4">Los Altos</LABEL></LI>
+                        </UL>
+                    </LI>
+                </UL>
+            </DIV>
+            <DIV class="amenities">
+                <H3>Amenities</H3>
+                <UL class="popover">
+                    <LI><LABEL for="amenity-1"><INPUT type="checkbox" name="amenity" id="amenity-1" value="amenity-1">Internet</LABEL></LI>
+                    <LI><LABEL for="amenity-2"><INPUT type="checkbox" name="amenity" id="amenity-2" value="amenity-2">TV</LABEL></LI>
+                    <LI><LABEL for="amenity-3"><INPUT type="checkbox" name="amenity" id="amenity-3" value="amenity-3">Kitchen</LABEL></LI>
+                    <LI><LABEL for="amenity-4"><INPUT type="checkbox" name="amenity" id="amenity-4" value="amenity-4">Iron</LABEL></LI>
+                </UL>
+            </DIV>
+        </SECTION>
+    </DIV>
+    <FOOTER>
+        <P>Holberton School</P>
+    </FOOTER>
+</BODY>
+</HTML>
